@@ -1,0 +1,18 @@
+<div class="main_contents">
+	<% @blogs.each do |blog| %>
+		<div class= "blog_contents">
+		  <h2><%= link_to blog.title, blog_path(blog.id) %></h2>
+		  <%= blog.body %>
+
+		  <% if user_signed_in? %>
+		    <% if blog.liked_by?(current_user) %>
+		        <p><span>お気に入り解除: </span><%=link_to blog.likes.count, blog_likes_path(blog.id), method: :delete %></p>
+		    <% else %>
+		        <p><span>お気に入り登録: </span><%=link_to blog.likes.count, blog_likes_path(blog.id), method: :post %></p>
+		    <% end %>
+		  <% else %>
+		    <p><span>お気に入り数: </span><%= blog.likes.count %></p>
+		  <% end %>
+		<% end %>
+	</div>
+</div>
